@@ -1,0 +1,257 @@
+/* ========================================
+   Villa Care Collective - JavaScript
+   GSAP Animations & Scroll Triggers
+   ======================================== */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ========================================
+    // Hero Banner Fade-In Animation
+    // ========================================
+    const bannerBlock = document.querySelector('.banner-block');
+
+    // Trigger hero fade-in after a short delay
+    setTimeout(() => {
+        if (bannerBlock) {
+            bannerBlock.classList.add('vis');
+        }
+    }, 300);
+
+    // ========================================
+    // Banner Floating Image Parallax
+    // ========================================
+    const bannerFloats = document.querySelectorAll('.banner-float img');
+
+    bannerFloats.forEach(img => {
+        gsap.to(img, {
+            yPercent: -10,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".banner",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    });
+
+    // ========================================
+    // Text Reveal Animations
+    // ========================================
+    const reveals = document.querySelectorAll('.reveal');
+
+    reveals.forEach(reveal => {
+        ScrollTrigger.create({
+            trigger: reveal,
+            start: "top 80%",
+            onEnter: () => reveal.classList.add('animate'),
+            once: true
+        });
+    });
+
+    // ========================================
+    // Image Float Parallax
+    // ========================================
+    const imgFloats = document.querySelectorAll('.img-float:not(.banner-float) img');
+
+    imgFloats.forEach(img => {
+        gsap.fromTo(img,
+            { yPercent: -10 },
+            {
+                yPercent: 10,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            }
+        );
+    });
+
+    // ========================================
+    // Slogan Text Reveal
+    // ========================================
+    const sloganText = document.querySelector('.slogan-text');
+
+    if (sloganText) {
+        ScrollTrigger.create({
+            trigger: sloganText,
+            start: "top 70%",
+            onEnter: () => sloganText.classList.add('active'),
+            once: true
+        });
+    }
+
+    // ========================================
+    // Line Dash Animation
+    // ========================================
+    const lineDashes = document.querySelectorAll('.line-dash');
+
+    lineDashes.forEach(line => {
+        ScrollTrigger.create({
+            trigger: line.parentElement,
+            start: "top 80%",
+            onEnter: () => line.classList.add('animate'),
+            once: true
+        });
+    });
+
+    // ========================================
+    // Service Cards Stagger Animation
+    // ========================================
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    if (serviceCards.length > 0) {
+        gsap.fromTo(serviceCards,
+            {
+                opacity: 0,
+                y: 40
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".services-grid",
+                    start: "top 75%",
+                    once: true
+                }
+            }
+        );
+    }
+
+    // ========================================
+    // Invest Info Block Animation
+    // ========================================
+    const investBlocks = document.querySelectorAll('.invest-info-block');
+
+    investBlocks.forEach(block => {
+        gsap.fromTo(block,
+            {
+                opacity: 0,
+                y: 60
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top 75%",
+                    once: true
+                }
+            }
+        );
+    });
+
+    // ========================================
+    // Header Scroll Effect
+    // ========================================
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 100) {
+            header.style.background = 'rgba(19, 38, 32, 0.95)';
+            header.style.backdropFilter = 'blur(10px)';
+            header.style.webkitBackdropFilter = 'blur(10px)';
+        } else {
+            header.style.background = 'transparent';
+            header.style.backdropFilter = 'none';
+            header.style.webkitBackdropFilter = 'none';
+        }
+
+        lastScroll = currentScroll;
+    });
+
+    // ========================================
+    // Smooth Scroll for Anchor Links
+    // ========================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerOffset = 100;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // ========================================
+    // Mobile Navigation Toggle
+    // ========================================
+    const mobNavIcon = document.querySelector('.mob-nav-icon');
+    const headerNav = document.querySelector('.header-nav');
+
+    if (mobNavIcon && headerNav) {
+        mobNavIcon.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            headerNav.classList.toggle('active');
+        });
+    }
+
+    // ========================================
+    // Form Submission Handler
+    // ========================================
+    const form = document.getElementById('inquiryForm');
+
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            console.log('Form submitted:', data);
+
+            // Show success feedback
+            const button = form.querySelector('.button');
+            const originalText = button.textContent;
+            button.textContent = 'Request Received';
+            button.style.backgroundColor = 'var(--c2)';
+            button.style.color = 'var(--c4)';
+
+            // Reset form
+            form.reset();
+
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '';
+                button.style.color = '';
+            }, 3000);
+        });
+    }
+
+    // ========================================
+    // Join Section Reveal
+    // ========================================
+    const joinSection = document.querySelector('.join .reveal');
+
+    if (joinSection) {
+        ScrollTrigger.create({
+            trigger: joinSection,
+            start: "top 80%",
+            onEnter: () => joinSection.classList.add('animate'),
+            once: true
+        });
+    }
+});
