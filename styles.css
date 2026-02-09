@@ -1267,8 +1267,11 @@ body.is-loader {
 
     .banner-content {
         width: 100%;
-        padding: 40px 30px;
+        padding: 30px 20px;
+        /* Reduced padding */
         aspect-ratio: auto;
+        box-sizing: border-box;
+        /* Ensure padding doesn't overflow width */
     }
 
     .banner-image {
@@ -1278,14 +1281,19 @@ body.is-loader {
     }
 
     .banner-h1 {
-        font-size: 32px;
+        font-size: 28px;
+        /* Slightly smaller to fit better */
         margin-bottom: 20px;
+        word-wrap: break-word;
+        /* Prevent long words breaking layout */
     }
 
     /* About Section */
     .about-team {
         flex-direction: column;
         margin-bottom: 80px;
+        align-items: center;
+        /* Center flex items */
     }
 
     .about-team-col {
@@ -1294,6 +1302,11 @@ body.is-loader {
         margin-left: 0 !important;
         /* Override layout offsets */
         margin-top: 0 !important;
+        text-align: center;
+        /* Center text */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .about-team-col.img-float {
@@ -1304,6 +1317,15 @@ body.is-loader {
     .about-team-col h2 {
         width: 100%;
         font-size: 28px;
+        text-align: center;
+        /* Explicitly center heading */
+    }
+
+    .about-team-text {
+        text-align: center;
+        /* Center body text */
+        margin: 0 auto;
+        /* Center block if it has width */
     }
 
     /* Service Pillars */
