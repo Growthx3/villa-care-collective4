@@ -485,7 +485,8 @@ body.is-loader {
 
 .banner-block {
     display: flex;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
     gap: 0;
     opacity: 0;
     visibility: hidden;
@@ -510,9 +511,16 @@ body.is-loader {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    width: 50%;
-    aspect-ratio: 1 / 1;
+    align-items: center;
+    /* Center items horizontally */
+    text-align: center;
+    /* Ensure text is centered */
+    width: auto;
+    /* Allow sizing based on content/max-width */
+    max-width: 800px;
+    /* Constrain width */
+    aspect-ratio: auto;
+    /* Remove aspect ratio constraint */
 }
 
 .banner-label {
@@ -527,7 +535,7 @@ body.is-loader {
 }
 
 .banner-h1 {
-    text-align: left;
+    text-align: center;
     margin-bottom: 35px;
     font-size: clamp(30px, 4vw, 56px);
     /* Reduced by ~14px (approx 10pt) */
@@ -547,7 +555,7 @@ body.is-loader {
 }
 
 .banner-content .subheading {
-    text-align: left;
+    text-align: center;
     max-width: 450px;
     /* Increased width for larger text */
     font-size: 14px;
@@ -595,9 +603,16 @@ body.is-loader {
 }
 
 .about-team-col:last-child {
-    margin-left: auto;
-    width: 45%;
-    margin-top: 100px;
+    width: 100%;
+    margin: 60px auto 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-team-col:last-child .about-team-text {
+    max-width: 700px;
 }
 
 .about-team-col.img-float {
@@ -1267,8 +1282,8 @@ body.is-loader {
 
     .banner-content {
         width: 100%;
-        padding: 30px 20px;
-        /* Reduced padding */
+        padding: 40px 20px;
+        /* Increased padding */
         aspect-ratio: auto;
         box-sizing: border-box;
         /* Ensure padding doesn't overflow width */
@@ -1281,11 +1296,12 @@ body.is-loader {
     }
 
     .banner-h1 {
-        font-size: 28px;
-        /* Slightly smaller to fit better */
-        margin-bottom: 20px;
+        font-size: clamp(32px, 8vw, 48px);
+        /* Slightly larger for mobile readability */
+        margin-bottom: 24px;
         word-wrap: break-word;
         /* Prevent long words breaking layout */
+        line-height: 1.1;
     }
 
     /* About Section */
@@ -1298,10 +1314,8 @@ body.is-loader {
 
     .about-team-col {
         width: 100%;
-        margin: 0 0 40px;
-        margin-left: 0 !important;
-        /* Override layout offsets */
-        margin-top: 0 !important;
+        margin: 0 0 50px;
+        /* Standard margin bottom */
         text-align: center;
         /* Center text */
         display: flex;
@@ -1309,14 +1323,24 @@ body.is-loader {
         align-items: center;
     }
 
-    .about-team-col.img-float {
-        height: 300px;
+    /* Reset specific margins from desktop styles without !important if possible, 
+       but here we use !important to override the specificity of :last-child if needed, 
+       or we can rely on order. Let's try to be specific. */
+    .about-team-col:last-child {
+        margin: 0 0 50px;
+        /* Override desktop margin */
         width: 100%;
+    }
+
+    .about-team-col.img-float {
+        height: 350px;
+        width: 100%;
+        margin-bottom: 50px;
     }
 
     .about-team-col h2 {
         width: 100%;
-        font-size: 28px;
+        font-size: 32px;
         text-align: center;
         /* Explicitly center heading */
     }
@@ -1324,19 +1348,33 @@ body.is-loader {
     .about-team-text {
         text-align: center;
         /* Center body text */
-        margin: 0 auto;
+        margin: 0 auto 30px;
         /* Center block if it has width */
+        font-size: 16px;
+        /* Readable body text */
+        padding: 0 20px;
     }
 
     /* Service Pillars */
     .info-top {
-        padding-left: 20px;
+        padding: 0 20px;
         margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .info-top h2,
+    .info-top .subheading {
+        text-align: center;
     }
 
     .info-block {
-        padding-left: 20px;
+        padding: 0 20px;
         margin-bottom: 60px;
+        text-align: center;
+    }
+
+    .info-text {
+        margin: 0 auto 40px;
     }
 
     .link-flash {
@@ -1346,8 +1384,8 @@ body.is-loader {
     /* Services Grid */
     .services-grid {
         grid-template-columns: 1fr;
-        padding-left: 20px;
-        gap: 15px;
+        padding: 0 20px;
+        gap: 20px;
     }
 
     .service-card {
@@ -1356,25 +1394,35 @@ body.is-loader {
 
     /* Stewardship Section */
     .invest-info {
-        padding-left: 20px;
+        padding: 0 20px;
     }
 
     .invest-info-top {
         margin-bottom: 40px;
+        text-align: center;
     }
+
+    .invest-info-top h2,
+    .invest-info-top .subheading {
+        text-align: center;
+    }
+
 
     .invest-info-block {
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
+        align-items: center;
     }
 
     .invest-info-img {
         width: 100%;
-        height: 250px;
+        height: 300px;
     }
 
     .invest-info-content {
         width: 100%;
+        align-items: center;
+        text-align: center;
     }
 
     /* Footer */
@@ -1437,7 +1485,7 @@ body.is-loader {
 
 @media screen and (max-width: 480px) {
     .banner-content {
-        padding: 40px 25px;
+        padding: 40px 20px;
     }
 
     .loader-box {
@@ -1447,5 +1495,9 @@ body.is-loader {
 
     .service-card {
         padding: 30px 20px;
+    }
+
+    .about-team-col h2 {
+        font-size: 28px;
     }
 }
