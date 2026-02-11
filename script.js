@@ -5,6 +5,65 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // ========================================
+    // Language & Geolocation Logic
+    // ========================================
+    (function initLanguage() {
+        // Show body content (specifically for index-hr.html which starts hidden)
+        document.body.style.visibility = 'visible';
+        document.body.style.opacity = '1';
+
+        const savedLang = sessionStorage.getItem('vcc_lang');
+        const path = window.location.pathname;
+        const isCroatianPage = path.includes('index-hr.html');
+
+        // 1. Handle Manual Preference
+        if (savedLang) {
+            if (savedLang === 'hr' && !isCroatianPage) {
+                window.location.href = 'index-hr.html';
+                return;
+            } else if (savedLang === 'en' && isCroatianPage) {
+                window.location.href = 'index.html';
+                return;
+            }
+        }
+
+        // 2. Handle Geolocation (only if no preference set and on English page)
+        if (!savedLang && !isCroatianPage) {
+            // Check IP location
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const country = data.country_code; // e.g. "HR"
+                    const targetCountries = ['HR', 'BA', 'RS', 'ME']; // Croatia, Bosnia, Serbia, Montenegro
+
+                    if (targetCountries.includes(country)) {
+                        // Redirect to Croatian version
+                        window.location.href = 'index-hr.html';
+                    }
+                })
+                .catch(err => {
+                    console.log('Geo-IP check failed:', err);
+                    // Fail silently, stay on English
+                });
+        }
+    })();
+
+    // Language Switcher Click Handlers
+    const langLinks = document.querySelectorAll('.lang-switch a');
+    langLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            // If link is # (current), do nothing
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+                return;
+            }
+
+            const lang = this.innerText.trim().toLowerCase(); // 'en' or 'hr'
+            sessionStorage.setItem('vcc_lang', lang);
+        });
+    });
+
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
