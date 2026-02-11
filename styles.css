@@ -1538,6 +1538,14 @@ body.is-loader {
         align-items: center;
         gap: 30px;
         text-align: center;
+        width: 100%;
+        /* Ensure full width for centering */
+    }
+
+    /* Reset desktop margins */
+    .header-nav-list:first-child,
+    .header-nav-list:last-child {
+        margin: 0;
     }
 
     .mob-nav-icon {
@@ -1576,6 +1584,13 @@ body.is-loader {
         margin: 0;
         position: relative;
         z-index: 100;
+        color: var(--c2) !important;
+        /* Force Gold Color */
+    }
+
+    .lang-switch a {
+        color: var(--c2) !important;
+        /* Force Gold Color */
     }
 
     .header-block {
