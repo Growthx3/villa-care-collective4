@@ -1475,17 +1475,25 @@ body.is-loader {
     .slogan-text .slogan-line {
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
+        transition: opacity 0.8s ease, transform 0.8s ease, color 0.8s ease;
     }
 
     .slogan-text.active .slogan-line {
         opacity: 1;
         transform: translateY(0);
+        color: var(--c1);
+        /* Turn white/bright */
+    }
+
+    .slogan-text.active .slogan-line.highlight {
+        color: var(--c2);
+        /* Turn gold */
     }
 
     /* Re-apply color highlight logic without cover */
     .slogan-line.highlight {
-        color: var(--c2);
+        color: rgba(191, 161, 121, 0.15);
+        /* Keep dim gold initially */
     }
 
     /* Services Grid */
