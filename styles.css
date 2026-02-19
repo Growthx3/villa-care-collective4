@@ -1430,6 +1430,8 @@ body.is-loader {
     .info-top h2,
     .info-top .subheading {
         text-align: center;
+        width: 100%;
+        word-wrap: break-word;
     }
 
     .info-block {
@@ -1440,10 +1442,14 @@ body.is-loader {
 
     .info-text {
         margin: 0 auto 40px;
+        font-size: 15px;
+        /* Slightly smaller for mobile readability */
+        line-height: 1.6;
     }
 
     .link-flash {
-        font-size: 18px;
+        font-size: 16px;
+        /* Reduced from 18px for better fit */
     }
 
     /* Services Grid */
