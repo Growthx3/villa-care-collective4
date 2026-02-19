@@ -1452,6 +1452,42 @@ body.is-loader {
         /* Reduced from 18px for better fit */
     }
 
+    /* Slogan Mobile Optimization */
+    .slogan-text {
+        font-size: 24px;
+        /* Smaller font for mobile */
+        padding: 0 20px;
+    }
+
+    .slogan-line {
+        white-space: normal;
+        /* Allow text to wrap */
+        display: block;
+        /* Stack lines vertically */
+        margin-bottom: 8px;
+    }
+
+    /* Disable cover animation on mobile, use fade-in instead */
+    .slogan-cover {
+        display: none;
+    }
+
+    .slogan-text .slogan-line {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .slogan-text.active .slogan-line {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Re-apply color highlight logic without cover */
+    .slogan-line.highlight {
+        color: var(--c2);
+    }
+
     /* Services Grid */
     .services-grid {
         grid-template-columns: 1fr;
