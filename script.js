@@ -275,28 +275,47 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-
-            console.log('Form submitted:', data);
-
-            // Show success feedback
             const button = form.querySelector('.button');
             const originalText = button.textContent;
-            button.textContent = 'Request Received';
-            button.style.backgroundColor = 'var(--c2)';
-            button.style.color = 'var(--c4)';
 
-            // Reset form
-            form.reset();
+            // Visual feedback - processing
+            button.textContent = 'Sending...';
 
-            // Reset button after 3 seconds
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.backgroundColor = '';
-                button.style.color = '';
-            }, 3000);
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Success feedback
+                    button.textContent = 'Request Received';
+                    button.style.backgroundColor = 'var(--c2)';
+                    button.style.color = 'var(--c4)';
+                    form.reset();
+                } else {
+                    // Error feedback
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            button.textContent = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            button.textContent = 'Error sending msg';
+                        }
+                    });
+                }
+            }).catch(error => {
+                button.textContent = 'Network Error';
+            }).finally(() => {
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                    button.style.color = '';
+                }, 3000);
+            });
         });
     }
 

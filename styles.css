@@ -1503,8 +1503,25 @@ body.is-loader {
         gap: 20px;
     }
 
+    .join {
+        padding: 80px 0;
+    }
+
+    .join-form .key-wrap {
+        margin: 0 0 40px;
+    }
+
+    .input-box {
+        gap: 20px;
+    }
+
     .input-item {
         width: 100%;
+        margin: 0;
+    }
+
+    .form-button {
+        margin-top: 40px;
     }
 
     /* Header */
