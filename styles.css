@@ -741,9 +741,11 @@ body.is-loader {
    Slogan / Manifesto
    ======================================== */
 .slogan {
-    max-width: 1100px;
+    width: 100%;
     margin: 0 auto 120px;
     position: relative;
+    padding: 0 20px;
+    /* added some padding for mobile */
 }
 
 .slogan-text {
@@ -759,7 +761,9 @@ body.is-loader {
     position: relative;
     white-space: nowrap;
     color: rgba(242, 241, 237, 0.15);
-    display: inline;
+    display: inline-block;
+    /* changed from block to inline-block to allow centering while maintaining width */
+    margin: 0 auto;
 }
 
 .slogan-line.highlight {
@@ -1064,6 +1068,39 @@ body.is-loader {
 
 .input-item input::placeholder {
     color: rgba(242, 241, 237, 0.3);
+}
+
+.input-item select {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0 0 15px;
+    margin: 0;
+    font-family: 'Jost', Arial, sans-serif;
+    font-size: clamp(14px, 1vw, 16px);
+    font-weight: 400;
+    color: rgba(242, 241, 237, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--c1);
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-item select:focus {
+    border-bottom-color: var(--c2);
+}
+
+.input-item select option {
+    background: var(--c4);
+    color: var(--c1);
 }
 
 .form-button {
@@ -1464,7 +1501,8 @@ body.is-loader {
         /* Allow text to wrap */
         display: block;
         /* Stack lines vertically */
-        margin-bottom: 8px;
+        margin: 0 auto 8px auto;
+        /* Center element horizontally and keep bottom spacing */
     }
 
     /* Disable cover animation on mobile, use fade-in instead */
