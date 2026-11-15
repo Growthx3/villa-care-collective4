@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="text-scale" content="scale">
     <meta name="description"
         content="Villa Care Collective - Premium tehničko održavanje vila i bazena za obalne domove u Dubrovniku i široj jadranskoj regiji.">
     <title>Villa Care Collective | Tehničko održavanje vila</title>
@@ -25,11 +27,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS"
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE"
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -46,24 +52,26 @@
     <div id="wrapper">
         <!-- Header -->
         <header class="header">
+            <a href="#main-content" class="skip-link visually-hidden">Preskoči na glavni sadržaj</a>
             <div class="holder">
                 <div class="header-block">
-                    <a href="#" class="mob-nav-icon" title="Toggle navigation menu">
+                    <button type="button" class="mob-nav-icon" aria-label="Otvori navigacijski izbornik"
+                        aria-expanded="false" aria-controls="primary-nav">
                         <span class="mob-nav-block"></span>
-                    </a>
+                    </button>
                     <div class="header-logo">
                         <a href="#">Villa Care Collective</a>
                     </div>
-                    <div class="header-nav">
-                        <ul class="header-nav-list">
+                    <nav id="primary-nav" class="header-nav" aria-label="Glavna">
+                        <ul class="header-nav-list" role="list">
                             <li><a href="#" class="current">Početna</a></li>
                             <li><a href="#philosophy">Filozofija</a></li>
                         </ul>
-                        <ul class="header-nav-list">
+                        <ul class="header-nav-list" role="list">
                             <li><a href="#services">Usluge</a></li>
                             <li><a href="#contact">Kontakt</a></li>
                         </ul>
-                    </div>
+                    </nav>
                     <!-- Language Switcher -->
                     <div class="lang-switch">
                         <a href="index.html">EN</a>
@@ -74,11 +82,13 @@
             </div>
         </header>
 
+        <main id="main-content" tabindex="-1">
         <!-- Banner / Hero -->
         <section class="banner">
             <div class="banner-slider">
                 <div class="banner-slide">
-                    <img src="images/Villaheroimage.webp" alt="Luksuzna vila s infinity bazenom">
+                    <img src="images/Villaheroimage.webp" alt="Luksuzna vila s infinity bazenom" fetchpriority="high"
+                        width="4368" height="2448">
                 </div>
             </div>
             <div class="banner-main">
@@ -125,7 +135,8 @@
                         </div>
                     </div>
                     <div class="about-team-col img-float" data-speed="0.05">
-                        <img src="images/about-villa.jpg" alt="Održavanje vile">
+                        <img src="images/about-villa.jpg" alt="Održavanje vile" loading="lazy" width="682"
+                            height="1024">
                     </div>
                     <div class="about-team-col">
                         <div class="about-team-text">
@@ -229,7 +240,8 @@
                             </div>
                             <div class="invest-info-block">
                                 <div class="invest-info-img img-float">
-                                    <img src="images/stewardship.jpg" alt="Eksterijer vile s bazenom">
+                                    <img src="images/stewardship.jpg" alt="Eksterijer vile s bazenom" loading="lazy"
+                                        width="682" height="1024">
                                 </div>
                                 <div class="invest-info-content">
                                     <div class="invest-info-text">
@@ -261,52 +273,69 @@
                     </div>
                     <form id="inquiryForm" action="https://formspree.io/f/xvzbbzez" method="POST">
                         <!-- Honeypot for spam protection -->
-                        <input type="text" name="_gotcha" style="display:none">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true"
+                            autocomplete="off">
                         <!-- Subject line for email -->
                         <input type="hidden" name="_subject" value="New Inquiry from Villa Care Collective (HR)">
                         <div class="input-box">
                             <span class="input-item">
-                                <input type="text" name="name" placeholder="ime i prezime" aria-label="Ime i prezime" autocomplete="name" required>
+                                <label for="field-name" class="visually-hidden">Ime i prezime (obavezno)</label>
+                                <input id="field-name" type="text" name="name" placeholder="ime i prezime"
+                                    autocomplete="name" data-error="name-error" required>
+                                <span id="name-error" class="field-error">Molimo unesite ime i prezime.</span>
                             </span>
                             <span class="input-item">
-                                <input type="email" name="email" placeholder="email" aria-label="Email adresa" autocomplete="email" required>
+                                <label for="field-email" class="visually-hidden">Email adresa (obavezno)</label>
+                                <input id="field-email" type="email" name="email" placeholder="email"
+                                    autocomplete="email" autocorrect="off" autocapitalize="none" spellcheck="false"
+                                    data-error="email-error" required>
+                                <span id="email-error" class="field-error">Molimo unesite ispravnu email adresu.</span>
                             </span>
                             <span class="input-item">
-                                <input type="text" name="location" placeholder="lokacija vile" aria-label="Lokacija vile">
+                                <label for="field-location" class="visually-hidden">Lokacija vile</label>
+                                <input id="field-location" type="text" name="location" placeholder="lokacija vile">
                             </span>
                             <span class="input-item">
-                                <input type="tel" name="phone" placeholder="broj telefona" aria-label="Broj telefona" autocomplete="tel">
+                                <label for="field-phone" class="visually-hidden">Broj telefona</label>
+                                <input id="field-phone" type="tel" name="phone" placeholder="broj telefona"
+                                    autocomplete="tel">
                             </span>
                             <span class="input-item select-item">
-                                <select name="pool" title="Imate li bazen?" aria-label="Imate li bazen?">
+                                <label for="field-pool" class="visually-hidden">Imate li bazen?</label>
+                                <select id="field-pool" name="pool">
                                     <option value="" disabled selected>bazen?</option>
                                     <option value="Da">Da</option>
                                     <option value="Ne">Ne</option>
                                 </select>
                             </span>
                             <span class="input-item">
-                                <input type="text" name="message" placeholder="poruka" aria-label="Poruka">
+                                <label for="field-message" class="visually-hidden">Poruka</label>
+                                <input id="field-message" type="text" name="message" placeholder="poruka">
                             </span>
                         </div>
                         <div class="form-button">
                             <button class="button" type="submit">Zatražite tehničko savjetovanje</button>
+                            <div id="form-status" class="visually-hidden" aria-live="polite"></div>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
+        </main>
 
         <!-- Footer -->
         <footer class="footer">
             <div class="holder">
                 <div class="footer-top">
                     <div class="footer-logo">Villa Care Collective</div>
-                    <ul class="footer-nav">
-                        <li><a href="#">Početna</a></li>
-                        <li><a href="#philosophy">Filozofija</a></li>
-                        <li><a href="#services">Usluge</a></li>
-                        <li><a href="#contact">Kontakt</a></li>
-                    </ul>
+                    <nav aria-label="Podnožje">
+                        <ul class="footer-nav" role="list">
+                            <li><a href="#">Početna</a></li>
+                            <li><a href="#philosophy">Filozofija</a></li>
+                            <li><a href="#services">Usluge</a></li>
+                            <li><a href="#contact">Kontakt</a></li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="footer-text">
                     <p>Specijalizirani za tehničko održavanje vila i kuća na obali u Dubrovačko-neretvanskoj županiji.
@@ -326,7 +355,7 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

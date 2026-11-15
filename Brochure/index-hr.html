@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="text-scale" content="scale">
     <title>Villa Care Collective | Brošura usluga</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -26,6 +28,7 @@
             </div>
         </header>
 
+        <main id="main-content">
         <!-- Intro Section -->
         <section class="intro">
             <div class="holder">
@@ -64,7 +67,7 @@
                 <!-- Service 1 -->
                 <div class="service-row">
                     <div class="service-img">
-                        <img src="../images/PoolSystems.png" alt="Održavanje sustava bazena">
+                        <img src="../images/PoolSystems.png" alt="Održavanje sustava bazena" width="640" height="640">
                     </div>
                     <div class="service-content">
                         <h2>1) Sustavi bazena</h2>
@@ -82,7 +85,8 @@
                 <!-- Service 2 -->
                 <div class="service-row reverse">
                     <div class="service-img">
-                        <img src="../images/core_systems.png" alt="Ključni sustavi">
+                        <img src="../images/core_systems.png" alt="Ključni sustavi" loading="lazy" width="640"
+                            height="640">
                     </div>
                     <div class="service-content">
                         <h2>2) Ključni sustavi</h2>
@@ -100,7 +104,8 @@
                 <!-- Service 3 -->
                 <div class="service-row">
                     <div class="service-img">
-                        <img src="../images/building_envelope.png" alt="Zaštita pročelja i krova">
+                        <img src="../images/building_envelope.png" alt="Zaštita pročelja i krova" loading="lazy"
+                            width="640" height="640">
                     </div>
                     <div class="service-content">
                         <h2>3) Zaštita pročelja i krova</h2>
@@ -116,7 +121,8 @@
                 <!-- Service 4 -->
                 <div class="service-row reverse">
                     <div class="service-img">
-                        <img src="../images/coastal_protection.png" alt="Obalna zaštita">
+                        <img src="../images/coastal_protection.png" alt="Obalna zaštita" loading="lazy" width="640"
+                            height="640">
                     </div>
                     <div class="service-content">
                         <h2>4) Obalna zaštita</h2>
@@ -130,7 +136,8 @@
                 <!-- Service 5 -->
                 <div class="service-row">
                     <div class="service-img">
-                        <img src="../images/safety_readiness.png" alt="Sigurnost i spremnost">
+                        <img src="../images/safety_readiness.png" alt="Sigurnost i spremnost" loading="lazy" width="640"
+                            height="640">
                     </div>
                     <div class="service-content">
                         <h2>5) Sigurnost i spremnost</h2>
@@ -145,7 +152,8 @@
                 <!-- Service 6 -->
                 <div class="service-row reverse">
                     <div class="service-img">
-                        <img src="../images/stewardship.jpg" alt="Upravljanje i nadzor">
+                        <img src="../images/stewardship.jpg" alt="Upravljanje i nadzor" loading="lazy" width="682"
+                            height="1024">
                     </div>
                     <div class="service-content">
                         <h2>6) Upravljanje</h2>
@@ -173,6 +181,7 @@
                     imovine.</p>
             </div>
         </section>
+        </main>
 
         <!-- Footer -->
         <footer class="footer">
@@ -180,6 +189,11 @@
                 <div class="footer-logo">Villa Care Collective</div>
                 <div class="contact-info">
                     Osigurajte budućnost svoje nekretnine
+                </div>
+                <div class="footer-actions">
+                    <a href="https://villacarecollective.com/index-hr.html#contact" class="cta-button">Zatražite
+                        ponudu</a>
+                    <a href="mailto:info@villacarecollective.com" class="back-email">info@villacarecollective.com</a>
                 </div>
                 <p class="footer-desc">Specijalizirani za tehničko održavanje vila i kuća na obali u
                     Dubrovačko-neretvanskoj županiji. Naše usluge uključuju sustave bazena, MEP, zaštitu vanjske

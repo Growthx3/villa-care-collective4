@@ -11,9 +11,9 @@
     /* Deep Pine */
     --c5: #F3EAE1;
     /* Light cream */
-    --h1: clamp(32px, 5vw, 64px);
-    --h2: clamp(24px, 3vw, 42px);
-    --body: clamp(16px, 1.2vw, 18px);
+    --h1: clamp(2rem, 1.4rem + 3vw, 4rem);
+    --h2: clamp(1.5rem, 1.1rem + 2vw, 2.625rem);
+    --body: clamp(1rem, 0.9rem + 0.35vw, 1.125rem);
 }
 
 *,
@@ -22,6 +22,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+:where(a:any-link, button):focus-visible {
+    outline: 2px solid var(--c2);
+    outline-offset: 4px;
+}
+
+h1,
+h2,
+.subheading {
+    text-wrap: balance;
+}
+
+p,
+li {
+    text-wrap: pretty;
 }
 
 body {
@@ -111,7 +127,7 @@ img {
 
 .service-img {
     flex: 1;
-    overflow: hidden;
+    overflow: clip;
     position: relative;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
@@ -121,11 +137,11 @@ img {
     height: 100%;
     object-fit: cover;
     aspect-ratio: 4/3;
-    transition: transform 0.5s ease;
+    transition: scale 0.5s ease;
 }
 
 .service-row:hover .service-img img {
-    transform: scale(1.03);
+    scale: 1.03;
 }
 
 .service-content {
@@ -227,7 +243,59 @@ img {
     padding: 60px 0;
     text-align: center;
     border-top: 1px solid rgba(242, 241, 237, 0.1);
-    font-size: 14px;
+    font-size: 0.875rem;
+}
+
+.footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c2);
+    margin-bottom: 12px;
+}
+
+.contact-info {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    color: var(--c1);
+    margin-bottom: 24px;
+}
+
+.footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 40px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--c2);
+    border: 1px solid var(--c2);
+    background: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cta-button:hover {
+    background: var(--c2);
+    color: var(--c4);
+}
+
+.back-email {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    color: var(--c2);
 }
 
 .footer-desc {

@@ -65,151 +65,140 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Register GSAP ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+    }
 
     // ========================================
-    // Hero Banner Fade-In Animation
+    // Hero Banner Fade-In & Scroll Animations
     // ========================================
     const bannerBlock = document.querySelector('.banner-block');
-
-    // Trigger hero fade-in after a short delay
-    setTimeout(() => {
-        if (bannerBlock) {
-            bannerBlock.classList.add('vis');
-        }
-    }, 300);
-
-    // ========================================
-    // Banner Floating Image Parallax
-    // ========================================
-    const bannerFloats = document.querySelectorAll('.banner-float img');
-
-    bannerFloats.forEach(img => {
-        gsap.to(img, {
-            yPercent: -10,
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".banner",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
-
-    // ========================================
-    // Text Reveal Animations
-    // ========================================
     const reveals = document.querySelectorAll('.reveal');
+    const sloganText = document.querySelector('.slogan-text');
+    const lineDashes = document.querySelectorAll('.line-dash');
 
-    reveals.forEach(reveal => {
-        ScrollTrigger.create({
-            trigger: reveal,
-            start: "top 80%",
-            onEnter: () => reveal.classList.add('animate'),
-            once: true
-        });
-    });
+    if (prefersReducedMotion || typeof gsap === 'undefined') {
+        if (bannerBlock) bannerBlock.classList.add('vis');
+        reveals.forEach(reveal => reveal.classList.add('animate'));
+        if (sloganText) sloganText.classList.add('active');
+        lineDashes.forEach(line => line.classList.add('animate'));
+    } else {
+        // Trigger hero fade-in after a short delay
+        setTimeout(() => {
+            if (bannerBlock) {
+                bannerBlock.classList.add('vis');
+            }
+        }, 300);
 
-    // ========================================
-    // Image Float Parallax
-    // ========================================
-    const imgFloats = document.querySelectorAll('.img-float:not(.banner-float) img');
-
-    imgFloats.forEach(img => {
-        gsap.fromTo(img,
-            { yPercent: -10 },
-            {
-                yPercent: 10,
+        // Banner Floating Image Parallax
+        const bannerFloats = document.querySelectorAll('.banner-float img');
+        bannerFloats.forEach(img => {
+            gsap.to(img, {
+                yPercent: -10,
                 ease: "none",
                 scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: "top bottom",
+                    trigger: ".banner",
+                    start: "top top",
                     end: "bottom top",
                     scrub: true
                 }
-            }
-        );
-    });
+            });
+        });
 
-    // ========================================
-    // Slogan Text Reveal
-    // ========================================
-    const sloganText = document.querySelector('.slogan-text');
+        // Text Reveal Animations
+        reveals.forEach(reveal => {
+            ScrollTrigger.create({
+                trigger: reveal,
+                start: "top 80%",
+                onEnter: () => reveal.classList.add('animate'),
+                once: true
+            });
+        });
 
-    if (sloganText) {
-        ScrollTrigger.create({
-            trigger: sloganText,
-            start: "top 70%",
-            onEnter: () => sloganText.classList.add('active'),
-            once: true
+        // Image Float Parallax
+        const imgFloats = document.querySelectorAll('.img-float:not(.banner-float) img');
+        imgFloats.forEach(img => {
+            gsap.fromTo(img,
+                { yPercent: -10 },
+                {
+                    yPercent: 10,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: img.parentElement,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                }
+            );
+        });
+
+        // Slogan Text Reveal
+        if (sloganText) {
+            ScrollTrigger.create({
+                trigger: sloganText,
+                start: "top 70%",
+                onEnter: () => sloganText.classList.add('active'),
+                once: true
+            });
+        }
+
+        // Line Dash Animation
+        lineDashes.forEach(line => {
+            ScrollTrigger.create({
+                trigger: line.parentElement,
+                start: "top 80%",
+                onEnter: () => line.classList.add('animate'),
+                once: true
+            });
+        });
+
+        // Service Cards Stagger Animation
+        const serviceCards = document.querySelectorAll('.service-card');
+        if (serviceCards.length > 0) {
+            gsap.fromTo(serviceCards,
+                {
+                    opacity: 0,
+                    y: 40
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".services-grid",
+                        start: "top 75%",
+                        once: true
+                    }
+                }
+            );
+        }
+
+        // Invest Info Block Animation
+        const investBlocks = document.querySelectorAll('.invest-info-block');
+        investBlocks.forEach(block => {
+            gsap.fromTo(block,
+                {
+                    opacity: 0,
+                    y: 60
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: block,
+                        start: "top 75%",
+                        once: true
+                    }
+                }
+            );
         });
     }
-
-    // ========================================
-    // Line Dash Animation
-    // ========================================
-    const lineDashes = document.querySelectorAll('.line-dash');
-
-    lineDashes.forEach(line => {
-        ScrollTrigger.create({
-            trigger: line.parentElement,
-            start: "top 80%",
-            onEnter: () => line.classList.add('animate'),
-            once: true
-        });
-    });
-
-    // ========================================
-    // Service Cards Stagger Animation
-    // ========================================
-    const serviceCards = document.querySelectorAll('.service-card');
-
-    if (serviceCards.length > 0) {
-        gsap.fromTo(serviceCards,
-            {
-                opacity: 0,
-                y: 40
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: ".services-grid",
-                    start: "top 75%",
-                    once: true
-                }
-            }
-        );
-    }
-
-    // ========================================
-    // Invest Info Block Animation
-    // ========================================
-    const investBlocks = document.querySelectorAll('.invest-info-block');
-
-    investBlocks.forEach(block => {
-        gsap.fromTo(block,
-            {
-                opacity: 0,
-                y: 60
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: block,
-                    start: "top 75%",
-                    once: true
-                }
-            }
-        );
-    });
 
     // ========================================
     // Header Scroll Effect
@@ -238,12 +227,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================================
     const mobNavIcon = document.querySelector('.mob-nav-icon');
     const headerNav = document.querySelector('.header-nav');
+    const mainContent = document.getElementById('main-content');
+    const footerEl = document.querySelector('.footer');
+
+    const setMobileNavOpen = (isOpen) => {
+        if (!mobNavIcon || !headerNav) return;
+        mobNavIcon.classList.toggle('active', isOpen);
+        headerNav.classList.toggle('active', isOpen);
+        mobNavIcon.setAttribute('aria-expanded', String(isOpen));
+        if (mainContent) mainContent.inert = isOpen;
+        if (footerEl) footerEl.inert = isOpen;
+    };
 
     if (mobNavIcon && headerNav) {
         mobNavIcon.addEventListener('click', function (e) {
             e.preventDefault();
-            this.classList.toggle('active');
-            headerNav.classList.toggle('active');
+            const isOpen = !headerNav.classList.contains('active');
+            setMobileNavOpen(isOpen);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && headerNav.classList.contains('active')) {
+                setMobileNavOpen(false);
+                mobNavIcon.focus();
+            }
         });
     }
 
@@ -255,12 +262,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const href = this.getAttribute('href');
+
+            // Allow native skip-link behavior while moving focus to <main>
+            if (this.classList.contains('skip-link')) {
+                return;
+            }
+
             e.preventDefault();
 
             // Close mobile menu if open when clicking a navigation link
-            if (mobNavIcon && headerNav && headerNav.classList.contains('active')) {
-                mobNavIcon.classList.remove('active');
-                headerNav.classList.remove('active');
+            if (headerNav && headerNav.classList.contains('active')) {
+                setMobileNavOpen(false);
             }
 
             // Placeholder legal links in footer
@@ -268,11 +280,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+
             // Scroll to top for "#" (Logo / Home link)
             if (href === '#') {
                 window.scrollTo({
                     top: 0,
-                    behavior: 'smooth'
+                    behavior: scrollBehavior
                 });
                 return;
             }
@@ -285,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 window.scrollTo({
                     top: offsetPosition,
-                    behavior: 'smooth'
+                    behavior: scrollBehavior
                 });
             }
         });
@@ -308,19 +322,54 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ========================================
-    // Form Submission Handler
+    // Form Validation & Submission Handler
     // ========================================
     const form = document.getElementById('inquiryForm');
+    const formStatus = document.getElementById('form-status');
     const isHR = document.documentElement.lang === 'hr';
 
     if (form) {
+        // Sync ARIA validation state after user interaction (:user-invalid pattern)
+        const syncFieldAria = (field) => {
+            if (!('willValidate' in field) || !field.dataset.error) return;
+            const invalid = !field.validity.valid;
+            field.classList.toggle('user-invalid-fallback', invalid);
+            field.setAttribute('aria-invalid', String(invalid));
+            if (invalid) {
+                field.setAttribute('aria-describedby', field.dataset.error);
+            } else {
+                field.removeAttribute('aria-describedby');
+            }
+        };
+
+        form.addEventListener('blur', (e) => {
+            if (e.target.dataset && e.target.dataset.error) {
+                syncFieldAria(e.target);
+            }
+        }, true);
+
+        form.addEventListener('input', (e) => {
+            if (e.target.getAttribute && e.target.getAttribute('aria-invalid') === 'true') {
+                syncFieldAria(e.target);
+            }
+        });
+
+        form.addEventListener('invalid', (e) => {
+            syncFieldAria(e.target);
+        }, true);
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             const button = form.querySelector('.button');
             const originalText = button.textContent;
 
-            // Visual feedback - processing
-            button.textContent = isHR ? 'Slanje...' : 'Sending...';
+            const setStatus = (msg) => {
+                button.textContent = msg;
+                if (formStatus) formStatus.textContent = msg;
+            };
+
+            // Visual & screen-reader feedback - processing
+            setStatus(isHR ? 'Slanje...' : 'Sending...');
             button.disabled = true;
 
             const formData = new FormData(form);
@@ -334,27 +383,33 @@ document.addEventListener('DOMContentLoaded', function () {
             }).then(response => {
                 if (response.ok) {
                     // Success feedback
-                    button.textContent = isHR ? 'Upit zaprimljen' : 'Request Received';
+                    setStatus(isHR ? 'Upit zaprimljen' : 'Request Received');
                     button.style.backgroundColor = 'var(--c2)';
                     button.style.color = 'var(--c4)';
                     form.reset();
                     selectFields.forEach(s => s.classList.remove('has-value'));
+                    form.querySelectorAll('[aria-invalid]').forEach(el => {
+                        el.classList.remove('user-invalid-fallback');
+                        el.removeAttribute('aria-invalid');
+                        el.removeAttribute('aria-describedby');
+                    });
                 } else {
                     // Error feedback
                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
-                            button.textContent = data["errors"].map(error => error["message"]).join(", ");
+                            setStatus(data["errors"].map(error => error["message"]).join(", "));
                         } else {
-                            button.textContent = isHR ? 'Greška pri slanju' : 'Error sending message';
+                            setStatus(isHR ? 'Greška pri slanju' : 'Error sending message');
                         }
                     });
                 }
             }).catch(error => {
-                button.textContent = isHR ? 'Mrežna greška' : 'Network Error';
+                setStatus(isHR ? 'Mrežna greška' : 'Network Error');
             }).finally(() => {
                 // Reset button after 3 seconds
                 setTimeout(() => {
                     button.textContent = originalText;
+                    if (formStatus) formStatus.textContent = '';
                     button.style.backgroundColor = '';
                     button.style.color = '';
                     button.disabled = false;
