@@ -8,6 +8,18 @@
         content="Villa Care Collective - Premium tehničko održavanje vila i bazena za obalne domove u Dubrovniku i široj jadranskoj regiji.">
     <title>Villa Care Collective | Tehničko održavanje vila</title>
 
+    <!-- SEO & Social Meta -->
+    <link rel="canonical" href="https://villacarecollective.com/index-hr.html">
+    <link rel="alternate" hreflang="en" href="https://villacarecollective.com/">
+    <link rel="alternate" hreflang="hr" href="https://villacarecollective.com/index-hr.html">
+    <link rel="alternate" hreflang="x-default" href="https://villacarecollective.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Villa Care Collective | Tehničko održavanje vila">
+    <meta property="og:description"
+        content="Premium tehničko održavanje vila i bazena za obalne domove u Dubrovniku i široj jadranskoj regiji.">
+    <meta property="og:url" content="https://villacarecollective.com/index-hr.html">
+    <meta property="og:image" content="https://villacarecollective.com/images/Villaheroimage.webp">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,13 +34,12 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Hide body until redirection check is complete to avoid flash -->
-    <style>
-        body {
-            visibility: hidden;
-            opacity: 0;
+    <!-- Quick language redirect check before render (prevents blank page if external CDN lags) -->
+    <script>
+        if (sessionStorage.getItem('vcc_lang') === 'en') {
+            window.location.replace('index.html');
         }
-    </style>
+    </script>
 </head>
 
 <body>
@@ -110,7 +121,7 @@
                         <div class="about-team-text mob-hidden">
                             Pružamo tehničko održavanje vila i bazena u Dubrovniku i okolici. Brinemo se za sustave koji
                             su od ključne važnosti: bazensku tehniku, kvalitetu vode, klimatizaciju (HVAC) te sve
-                            elemente vanjske i unutarnje elemente objekta.
+                            vanjske i unutarnje elemente objekta.
                         </div>
                     </div>
                     <div class="about-team-col img-float" data-speed="0.05">
@@ -120,7 +131,7 @@
                         <div class="about-team-text">
                             <span class="mob-hide">Pružamo tehničko održavanje vila i bazena u Dubrovniku i okolici.
                                 Brinemo se za sustave koji su od ključne važnosti: bazensku tehniku, kvalitetu vode,
-                                klimatizaciju (HVAC) te sve elemente vanjske i unutarnje elemente objekta.</span>
+                                klimatizaciju (HVAC) te sve vanjske i unutarnje elemente objekta.</span>
                             Provodimo sustavne preglede i jasno izvješćujemo o stanju—kako bi vaš dom ostao zaštićen,
                             učinkovit i uvijek spreman. Naš iskusni tim ima desetljeća iskustva u osiguravanju dosljedno
                             visokih standarda za zahtjevne vlasnike nekretnina.
@@ -132,9 +143,9 @@
                 <!-- Slogan / Manifesto -->
                 <div class="slogan">
                     <div class="slogan-text">
-                        <span class="slogan-line highlight"><span class="slogan-cover">Izvrsna tehnička
+                        <span class="slogan-line highlight"><span class="slogan-cover" aria-hidden="true">Izvrsna tehnička
                                 skrb.</span>Izvrsna tehnička skrb.</span><br>
-                        <span class="slogan-line"><span class="slogan-cover">Utemeljena na pažnji prema detaljima i
+                        <span class="slogan-line"><span class="slogan-cover" aria-hidden="true">Utemeljena na pažnji prema detaljima i
                                 visokim standardima.</span>Utemeljena na pažnji prema detaljima i visokim
                             standardima.</span>
                     </div>
@@ -255,26 +266,26 @@
                         <input type="hidden" name="_subject" value="New Inquiry from Villa Care Collective (HR)">
                         <div class="input-box">
                             <span class="input-item">
-                                <input type="text" name="name" placeholder="ime i prezime" required>
+                                <input type="text" name="name" placeholder="ime i prezime" aria-label="Ime i prezime" autocomplete="name" required>
                             </span>
                             <span class="input-item">
-                                <input type="email" name="email" placeholder="email" required>
+                                <input type="email" name="email" placeholder="email" aria-label="Email adresa" autocomplete="email" required>
                             </span>
                             <span class="input-item">
-                                <input type="text" name="location" placeholder="lokacija vile">
+                                <input type="text" name="location" placeholder="lokacija vile" aria-label="Lokacija vile">
                             </span>
                             <span class="input-item">
-                                <input type="tel" name="phone" placeholder="broj telefona">
+                                <input type="tel" name="phone" placeholder="broj telefona" aria-label="Broj telefona" autocomplete="tel">
                             </span>
-                            <span class="input-item">
-                                <select name="pool" title="Imate li bazen?">
+                            <span class="input-item select-item">
+                                <select name="pool" title="Imate li bazen?" aria-label="Imate li bazen?">
                                     <option value="" disabled selected>bazen?</option>
                                     <option value="Da">Da</option>
                                     <option value="Ne">Ne</option>
                                 </select>
                             </span>
                             <span class="input-item">
-                                <input type="text" name="message" placeholder="poruka">
+                                <input type="text" name="message" placeholder="poruka" aria-label="Poruka">
                             </span>
                         </div>
                         <div class="form-button">

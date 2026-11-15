@@ -234,12 +234,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ========================================
-    // Smooth Scroll for Anchor Links
+    // Smooth Scroll for Anchor Links & Mobile Nav
     // ========================================
+    const mobNavIcon = document.querySelector('.mob-nav-icon');
+    const headerNav = document.querySelector('.header-nav');
+
+    if (mobNavIcon && headerNav) {
+        mobNavIcon.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            headerNav.classList.toggle('active');
+        });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            // Skip mobile menu toggle & language switcher (handled separately)
+            if (this.classList.contains('mob-nav-icon') || this.closest('.lang-switch')) {
+                return;
+            }
+
+            const href = this.getAttribute('href');
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+
+            // Close mobile menu if open when clicking a navigation link
+            if (mobNavIcon && headerNav && headerNav.classList.contains('active')) {
+                mobNavIcon.classList.remove('active');
+                headerNav.classList.remove('active');
+            }
+
+            // Placeholder legal links in footer
+            if (this.closest('.privacy') && href === '#') {
+                return;
+            }
+
+            // Scroll to top for "#" (Logo / Home link)
+            if (href === '#') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+
+            const target = document.querySelector(href);
             if (target) {
                 const headerOffset = 100;
                 const elementPosition = target.getBoundingClientRect().top;
@@ -254,23 +292,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ========================================
-    // Mobile Navigation Toggle
+    // Select Dropdown Color State
     // ========================================
-    const mobNavIcon = document.querySelector('.mob-nav-icon');
-    const headerNav = document.querySelector('.header-nav');
-
-    if (mobNavIcon && headerNav) {
-        mobNavIcon.addEventListener('click', function (e) {
-            e.preventDefault();
-            this.classList.toggle('active');
-            headerNav.classList.toggle('active');
-        });
-    }
+    const selectFields = document.querySelectorAll('.input-item select');
+    selectFields.forEach(select => {
+        const updateSelectState = () => {
+            if (select.value) {
+                select.classList.add('has-value');
+            } else {
+                select.classList.remove('has-value');
+            }
+        };
+        select.addEventListener('change', updateSelectState);
+        updateSelectState();
+    });
 
     // ========================================
     // Form Submission Handler
     // ========================================
     const form = document.getElementById('inquiryForm');
+    const isHR = document.documentElement.lang === 'hr';
 
     if (form) {
         form.addEventListener('submit', function (e) {
@@ -279,7 +320,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const originalText = button.textContent;
 
             // Visual feedback - processing
-            button.textContent = 'Sending...';
+            button.textContent = isHR ? 'Slanje...' : 'Sending...';
+            button.disabled = true;
 
             const formData = new FormData(form);
 
@@ -292,44 +334,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }).then(response => {
                 if (response.ok) {
                     // Success feedback
-                    button.textContent = 'Request Received';
+                    button.textContent = isHR ? 'Upit zaprimljen' : 'Request Received';
                     button.style.backgroundColor = 'var(--c2)';
                     button.style.color = 'var(--c4)';
                     form.reset();
+                    selectFields.forEach(s => s.classList.remove('has-value'));
                 } else {
                     // Error feedback
                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
                             button.textContent = data["errors"].map(error => error["message"]).join(", ");
                         } else {
-                            button.textContent = 'Error sending msg';
+                            button.textContent = isHR ? 'Greška pri slanju' : 'Error sending message';
                         }
                     });
                 }
             }).catch(error => {
-                button.textContent = 'Network Error';
+                button.textContent = isHR ? 'Mrežna greška' : 'Network Error';
             }).finally(() => {
                 // Reset button after 3 seconds
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.style.backgroundColor = '';
                     button.style.color = '';
+                    button.disabled = false;
                 }, 3000);
             });
-        });
-    }
-
-    // ========================================
-    // Join Section Reveal
-    // ========================================
-    const joinSection = document.querySelector('.join .reveal');
-
-    if (joinSection) {
-        ScrollTrigger.create({
-            trigger: joinSection,
-            start: "top 80%",
-            onEnter: () => joinSection.classList.add('animate'),
-            once: true
         });
     }
 });

@@ -1,7 +1,5 @@
 /* Brochure Styles - Based on Website5 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap');
-
 :root {
     --c1: #F2F1ED;
     /* Off-white */
@@ -204,12 +202,9 @@ img {
 
 /* Stewardship Section */
 .stewardship-section {
-    padding: 100px 0;
+    padding: 100px 40px;
     text-align: center;
     background: rgba(0, 0, 0, 0.15);
-    margin: 0 -40px;
-    padding-left: 40px;
-    padding-right: 40px;
 }
 
 .stewardship-section h2 {
